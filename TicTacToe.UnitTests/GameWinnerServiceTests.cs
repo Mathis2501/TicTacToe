@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using ticTacToe.Services;
+﻿using NUnit.Framework;
+using TicTacToe.Services;
 
-namespace ticTacToe.UnitTests
+namespace TicTacToe.UnitTests
 {
     [TestFixture]
     public class GameWinnerServiceTests
@@ -36,6 +32,7 @@ namespace ticTacToe.UnitTests
         public void PlayerWithAllSpacesInTopRowIsWinner()
         {
             const char expected = 'X';
+            _gameWinnerService.SetStartingPlayer(expected);
             for (var rowIndex = 0; rowIndex < 3; rowIndex++)
             {
                 _gameBoard[0, rowIndex] = expected;
@@ -48,6 +45,7 @@ namespace ticTacToe.UnitTests
         public void PlayerWithAllSpacesInFirstColumnIsWinner()
         {
             const char expected = 'X';
+            _gameWinnerService.SetStartingPlayer(expected);
             for (var columnIndex = 0; columnIndex < 3; columnIndex++)
             {
                 _gameBoard[columnIndex, 0] = expected;
@@ -60,6 +58,7 @@ namespace ticTacToe.UnitTests
         public void PlayerWithThreeInARowDiagonallyDownAndToRightIsWinner()
         {
             const char expected = 'X';
+            _gameWinnerService.SetStartingPlayer(expected);
             for (var cellIndex = 0; cellIndex < 3; cellIndex++)
             {
                 _gameBoard[cellIndex, cellIndex] = expected;
@@ -67,5 +66,69 @@ namespace ticTacToe.UnitTests
             var actual = _gameWinnerService.Validate(_gameBoard);
             Assert.AreEqual(expected.ToString(), actual.ToString());
         }
+        [Test]
+        public void PlayerWithThreeInARowDiagonallyDownAndToLeftIsWinner()
+        {
+            const char expected = 'X';
+            _gameWinnerService.SetStartingPlayer(expected);
+            for (var cellIndex = 0; cellIndex < 3; cellIndex++)
+            {
+                int Row = 3;
+                Row--;
+                _gameBoard[cellIndex, Row] = expected;
+            }
+            var actual = _gameWinnerService.Validate(_gameBoard);
+            Assert.AreEqual(expected.ToString(), actual.ToString());
+        }
+        [Test]
+        public void PlayerWithAllSpacesInMiddleRowIsWinner()
+        {
+            const char expected = 'X';
+            _gameWinnerService.SetStartingPlayer(expected);
+            for (var rowIndex = 0; rowIndex < 3; rowIndex++)
+            {
+                _gameBoard[1, rowIndex] = expected;
+            }
+            var actual = _gameWinnerService.Validate(_gameBoard);
+            Assert.AreEqual(expected.ToString(), actual.ToString());
+        }
+        [Test]
+        public void PlayerWithAllSpacesInBottomRowIsWinner()
+        {
+            const char expected = 'X';
+            _gameWinnerService.SetStartingPlayer(expected);
+            for (var rowIndex = 0; rowIndex < 3; rowIndex++)
+            {
+                _gameBoard[2, rowIndex] = expected;
+            }
+            var actual = _gameWinnerService.Validate(_gameBoard);
+            Assert.AreEqual(expected.ToString(), actual.ToString());
+        }
+        [Test]
+        public void PlayerWithAllSpacesInSecondColumnIsWinner()
+        {
+            const char expected = 'X';
+            _gameWinnerService.SetStartingPlayer(expected);
+            for (var columnIndex = 0; columnIndex < 3; columnIndex++)
+            {
+                _gameBoard[columnIndex, 1] = expected;
+            }
+            var actual = _gameWinnerService.Validate(_gameBoard);
+            Assert.AreEqual(expected.ToString(), actual.ToString());
+        }
+        [Test]
+        public void PlayerWithAllSpacesInThirdColumnIsWinner()
+        {
+            const char expected = 'X';
+            _gameWinnerService.SetStartingPlayer(expected);
+            for (var columnIndex = 0; columnIndex < 3; columnIndex++)
+            {
+                _gameBoard[columnIndex, 2] = expected;
+            }
+            var actual = _gameWinnerService.Validate(_gameBoard);
+            Assert.AreEqual(expected.ToString(), actual.ToString());
+        }
     }
+
+
 }
